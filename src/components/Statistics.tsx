@@ -1,41 +1,22 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 
-export interface StatisticsData {
-    lastPrice: number;
-    volumeBTC: number;
-    volumeUSD: number;
-    high: number;
-    low: number;
-    usdBalance: number;
-    btcBalance: number;
+interface Props {
+    stats: any;
 }
 
-type StatisticsProps = {
-    stats: StatisticsData;
-};
+const Statistics: React.FC<Props> = ({ stats }) => {
+    if (!stats) return <p>Carregando estatísticas...</p>;
 
-const Statistics = ({ stats }: StatisticsProps) => {
     return (
-        <div className="mb-4">
-            <h4>Estatísticas</h4>
-            <div className="row">
-                <div className="col-md-4">
-                    <ul className="list-group">
-                        <li className="list-group-item"><strong>Último preço:</strong> ${stats.lastPrice.toFixed(2)}</li>
-                        <li className="list-group-item"><strong>Volume 24h (BTC):</strong> {stats.volumeBTC.toFixed(4)}</li>
-                        <li className="list-group-item"><strong>Volume 24h (USD):</strong> ${stats.volumeUSD.toFixed(2)}</li>
-                        <li className="list-group-item"><strong>High 24h:</strong> ${stats.high.toFixed(2)}</li>
-                        <li className="list-group-item"><strong>Low 24h:</strong> ${stats.low.toFixed(2)}</li>
-                    </ul>
-                </div>
-                <div className="col-md-4">
-                    <ul className="list-group">
-                        <li className="list-group-item"><strong>Saldo USD:</strong> ${stats.usdBalance.toFixed(2)}</li>
-                        <li className="list-group-item"><strong>Saldo BTC:</strong> {stats.btcBalance.toFixed(4)}</li>
-                    </ul>
-                </div>
-            </div>
+        <div>
+            <h3>Estatísticas do Mercado</h3>
+            <p>Último Preço: ${stats.lastPrice}</p>
+            <p>Volume BTC (24h): {stats.volumeBTC}</p>
+            <p>Volume USD (24h): ${stats.volumeUSD}</p>
+            <p>Maior Preço (24h): ${stats.high}</p>
+            <p>Menor Preço (24h): ${stats.low}</p>
+            <p>Seu saldo USD: ${stats.usdBalance}</p>
+            <p>Seu saldo BTC: {stats.btcBalance}</p>
         </div>
     );
 };
