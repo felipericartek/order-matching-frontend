@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-const SellForm = () => {
+type SellFormProps = {
+    onOrderCreated: () => Promise<void>;
+};
+
+const SellForm = ({ onOrderCreated }: SellFormProps) => {
     const [amount, setAmount] = useState<number>(0);
     const [price, setPrice] = useState<number>(0);
 
@@ -14,23 +18,21 @@ const SellForm = () => {
                 return;
             }
 
-            await axios.post(
-                'http://localhost:3001/api/orders',
-                {
-                    amount,
-                    price,
-                    type: 'SELL',
+            await axios.post('http://localhost:3001/api/orders', {
+                amount,
+                price,
+                type: 'SELL',
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
                 },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
+            });
 
             alert('Ordem de venda criada com sucesso!');
             setAmount(0);
             setPrice(0);
+
+            await onOrderCreated();
         } catch (error) {
             console.error('Erro ao criar ordem de venda:', error);
             alert('Erro ao criar ordem. Tente novamente.');

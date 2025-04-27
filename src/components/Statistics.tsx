@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-interface StatisticsData {
+export interface StatisticsData {
     lastPrice: number;
     volumeBTC: number;
     volumeUSD: number;
@@ -11,37 +11,11 @@ interface StatisticsData {
     btcBalance: number;
 }
 
-const Statistics = () => {
-    const [stats, setStats] = useState<StatisticsData | null>(null);
+type StatisticsProps = {
+    stats: StatisticsData;
+};
 
-    const fetchStatistics = async () => {
-        try {
-            const token = localStorage.getItem('token');
-            if (!token) return;
-
-            const response = await axios.get('http://localhost:3001/api/statistics', {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-
-            setStats(response.data);
-        } catch (error) {
-            console.error('Erro ao buscar estatísticas:', error);
-        }
-    };
-
-    useEffect(() => {
-        fetchStatistics();
-
-        const interval = setInterval(fetchStatistics, 5000);
-        return () => clearInterval(interval);
-    }, []);
-
-    if (!stats) {
-        return <p>Carregando estatísticas...</p>;
-    }
-
+const Statistics = ({ stats }: StatisticsProps) => {
     return (
         <div className="mb-4">
             <h4>Estatísticas</h4>
