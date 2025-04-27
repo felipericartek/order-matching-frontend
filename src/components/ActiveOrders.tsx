@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 interface Order {
@@ -8,26 +7,12 @@ interface Order {
     type: 'BUY' | 'SELL';
 }
 
-const ActiveOrders = () => {
-    const [orders, setOrders] = useState<Order[]>([]);
+type ActiveOrdersProps = {
+    orders: Order[];
+    onOrderCancelled: () => Promise<void>;
+};
 
-    const fetchActiveOrders = async () => {
-        try {
-            const token = localStorage.getItem('token');
-            if (!token) return;
-
-            const response = await axios.get('http://localhost:3001/api/orders/active', {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-
-            setOrders(response.data);
-        } catch (error) {
-            console.error('Erro ao buscar ordens ativas:', error);
-        }
-    };
-
+const ActiveOrders = ({ orders, onOrderCancelled }: ActiveOrdersProps) => {
     const cancelOrder = async (orderId: number) => {
         try {
             const token = localStorage.getItem('token');
@@ -40,16 +25,12 @@ const ActiveOrders = () => {
             });
 
             alert('Ordem cancelada com sucesso!');
-            fetchActiveOrders(); // Atualiza a lista
+            await onOrderCancelled();
         } catch (error) {
             console.error('Erro ao cancelar ordem:', error);
             alert('Erro ao cancelar ordem.');
         }
     };
-
-    useEffect(() => {
-        fetchActiveOrders();
-    }, []);
 
     return (
         <div>

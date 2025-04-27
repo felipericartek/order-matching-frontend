@@ -1,6 +1,3 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-
 interface Order {
     id: number;
     amount: number;
@@ -8,29 +5,13 @@ interface Order {
     type: 'BUY' | 'SELL';
 }
 
-const OrderBook = () => {
-    const [orders, setOrders] = useState<Order[]>([]);
+type OrderBookProps = {
+    book: Order[];
+};
 
-    const fetchOrders = async () => {
-        try {
-            const response = await axios.get('http://localhost:3001/api/orders/active');
-            setOrders(response.data);
-        } catch (error) {
-            console.error('Erro ao buscar ordens para o order book:', error);
-        }
-    };
-
-    useEffect(() => {
-        fetchOrders();
-
-        // Atualizar a cada 5 segundos (pode trocar pra Socket.IO depois)
-        const interval = setInterval(fetchOrders, 5000);
-
-        return () => clearInterval(interval);
-    }, []);
-
-    const bids = orders.filter(order => order.type === 'BUY').sort((a, b) => b.price - a.price);
-    const asks = orders.filter(order => order.type === 'SELL').sort((a, b) => a.price - b.price);
+const OrderBook = ({ book }: OrderBookProps) => {
+    const bids = book.filter(order => order.type === 'BUY').sort((a, b) => b.price - a.price);
+    const asks = book.filter(order => order.type === 'SELL').sort((a, b) => a.price - b.price);
 
     return (
         <div>
