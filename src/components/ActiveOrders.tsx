@@ -31,43 +31,6 @@ const ActiveOrders = ({ orders, onOrderCancelled }: ActiveOrdersProps) => {
             alert('Erro ao cancelar ordem.');
         }
     };
-
-    return (
-        <div>
-            <h5>Minhas Ordens Ativas</h5>
-            {orders.length === 0 ? (
-                <p>Você não tem ordens ativas.</p>
-            ) : (
-                <table className="table table-sm">
-                    <thead>
-                    <tr>
-                        <th>Tipo</th>
-                        <th>Quantidade</th>
-                        <th>Preço (USD)</th>
-                        <th>Ações</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {orders.map((order) => (
-                        <tr key={order.id}>
-                            <td>{order.type}</td>
-                            <td>{order.amount}</td>
-                            <td>{order.price}</td>
-                            <td>
-                                <button
-                                    className="btn btn-sm btn-outline-danger"
-                                    onClick={() => cancelOrder(order.id)}
-                                >
-                                    Cancelar
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
-                    </tbody>
-                </table>
-            )}
-        </div>
-    );
 };
 
 export default ActiveOrders;

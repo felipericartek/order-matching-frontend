@@ -1,50 +1,66 @@
 
 ---
 
-# 📋 `order-matching-frontend/README.md`
+# 📋 README para o `order-matching-frontend`
 
 ```markdown
-# 🪙 Order Matching System - Frontend
+# Order Matching Frontend - Wisiex Challenge
 
-Interface Web para Matching de Ordens BTC/USD — React + Bootstrap + Socket.IO 🚀
+Aplicação React para interação com o sistema de matching de ordens BTC/USD.
 
----
+## 🛠️ Stack
 
-## 📚 Sobre o Frontend
-
-- Tela de Login simples (apenas username).
-- Dashboard completo:
-  - Estatísticas (preço, volume, saldo)
-  - Formulário de compra (BUY)
-  - Formulário de venda (SELL)
-  - Ordens ativas
-  - Histórico de negociações
-  - Livro de ofertas (orderbook)
-- Atualizações em tempo real via **Socket.IO**.
-
----
-
-## 🛠️ Tecnologias
-
-- React (Create React App)
+- React 18
 - TypeScript
 - Axios
 - Bootstrap
-- Socket.IO-Client
-- Dockerfile para build
+- React Toastify
+- React Router DOM
+- Socket.IO Client (pronto para real-time)
 
----
+## ⚙️ Funcionalidades
 
-## ⚙️ Como Rodar Localmente
+- Login via username
+- Emissão de ordens de compra e venda
+- Cancelamento de ordens ativas
+- Visualização de ordens ativas e histórico
+- Exibição de estatísticas de mercado (preço, volume, high/low)
+- Toasts de sucesso e erro
+- Spinner de carregamento
+- Layout responsivo com Bootstrap
 
-### 1. Instale as dependências:
+## 🚀 Como rodar
+
+1. Clone o projeto:
 
 ```bash
+git clone https://github.com/seu-usuario/order-matching-frontend.git
+cd order-matching-frontend
+Instale as dependências:
+
+bash
+Copiar
+Editar
 npm install
+Inicie o projeto:
 
-Rode o servidor de desenvolvimento:
-
+bash
+Copiar
+Editar
 npm start
-
 Frontend disponível em: http://localhost:3000
 
+⚡ Certifique-se que o backend esteja rodando na porta 3001.
+
+📚 Funcionalidades
+Tela de login
+
+Tela de painel de ordens
+
+Forms para Compra e Venda
+
+Listagem de ordens ativas com cancelamento
+
+Histórico de ordens
+
+Estatísticas do mercado
